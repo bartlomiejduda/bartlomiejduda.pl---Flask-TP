@@ -220,8 +220,9 @@ def list():
 
 
 if __name__ == "__main__":
+    print("FLASK TP APP - MAIN START")
     app.debug = False
-    app.run(host = '0.0.0.0') 
+    app.run()
 
 
 
