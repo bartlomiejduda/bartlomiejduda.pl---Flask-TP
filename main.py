@@ -3,6 +3,8 @@ from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from forms import ContactForm
 import sqlite3 as sql
+import os
+import pathlib
 
 
 
@@ -37,7 +39,7 @@ def result():
 
 
 @app.route("/staticfield")
-def index():
+def staticfield():
    return render_template("staticfield.html")
 
 
@@ -106,17 +108,36 @@ def delete_visits():
 
 
 # FILE UPLOADS
+
+UPLOAD_FOLDER = './static/files'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 @app.route('/upload')
 def upload_file():
     return render_template('upload.html')
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/uploader', methods=['GET', 'POST'])
 def uploader_init():
     if request.method == 'POST':
         f = request.files['file']
-        f.save(secure_filename(f.filename))
-        return 'file uploaded successfully'
+
+        if f.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if f and allowed_file(f.filename):
+            filename = secure_filename(f.filename)
+            pathlib.Path(app.config['UPLOAD_FOLDER']).mkdir(exist_ok=True)
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            print(file_path)
+            f.save(file_path)
+            return 'file uploaded successfully'
+        else:
+            return 'file can\'t be uploaded!'
 
 
 # SENDING MAILS
@@ -147,8 +168,11 @@ def sendmail():
 
         msg = Message('Hello', sender = mail_from, recipients = [mail_to])
         msg.body = mail_text
-        mail.send(msg)
-        return "Mail sent successfully!"
+        try:
+            mail.send(msg)
+            return "Mail sent successfully!"
+        except:
+            return "Username and password not accepted!"
 
     else:
         return "MAIL NOT SENT"

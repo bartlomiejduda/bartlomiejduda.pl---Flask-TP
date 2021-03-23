@@ -9,17 +9,31 @@
 </head>
   <body>
     <header>
-      <div class="container">
-        <h1 class="logo">First Web App test7</h1>
+      <div  id="bdmenu1" class="container">
+        <h1 class="logo">Flask TP App</h1>
+
+          <p id="bddesc1">This is app written in Flask. I'm using it to test some techniques from this framework.</p>
         <strong><nav>
           <ul class="menu">
               <li><a href="{{ url_for('home') }}">Home</a></li>
               <li><a href="{{ url_for('about') }}">About</a></li>
+              <li><a href="{{ url_for('success', name='bartek') }}">Success page</a></li>
+              <li><a href="{{ url_for('hello_score', score=537) }}">Score pass</a></li>
+              <li><a href="{{ url_for('hello_score', score=5) }}">Score fail</a></li>
+              <li><a href="{{ url_for('result') }}">Key value result</a></li>
+              <li><a href="{{ url_for('staticfield') }}">Static Field</a></li>
+              <li><a href="{{ url_for('student') }}">Student</a></li>
+              <li><a href="{{ url_for('hello_name', user='bartekduda') }}">Hello user</a></li>
+              <li><a href="{{ url_for('login') }}">Login</a></li>
+              <li><a href="{{ url_for('cookie') }}">Cookie</a></li>
+              <li><a href="{{ url_for('visits') }}">Sessions (visits counter)</a></li>
+              <li><a href="{{ url_for('delete_visits') }}">Sessions (delete visits)</a></li>
+              <li><a href="{{ url_for('upload_file') }}">File Upload</a></li>
 
 
               <li><a href="{{ url_for('sendmailform') }}">Send Mail</a></li>
               <li><a href="{{ url_for('contact') }}">Contact (WTForms)</a></li>
-              <li><a href="{{ url_for('addrec') }}">Add new record (SQLite)</a></li>
+              <li><a href="{{ url_for('new_student') }}">Add new record (SQLite)</a></li>
               <li><a href="{{ url_for('list') }}">Show records (SQLite)</a></li>
           </ul>
         </nav></strong>

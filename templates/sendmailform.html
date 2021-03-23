@@ -1,15 +1,15 @@
 <html>
    <body>
-      <form action = "http://localhost:5000/sendmail" method = "POST">
+      <form action = "/sendmail" method = "POST">
           <p>MY SENDING MAIL FORM</p>
 
-          <label for="male">Password:</label>
-          <input type = "text" id="mail_password" name = "mail_password" value="flask123"/><br>
+          <label for="mail_password">Password:</label>
+          <input type="password" id="mail_password" name = "mail_password" value="flask123"/><br>
 
-          <label for="male">MailTo:</label>
+          <label for="mail_to">MailTo:</label>
           <input type = "text" id="mail_to" name = "mail_to" value="your_mail@gmail.com"/><br>
 
-          <label for="male">MailText:</label>
+          <label for="mail_text">MailText:</label>
           <input type = "text" id="mail_text" name = "mail_text" value="some message"/><br><br>
 
           <br>
